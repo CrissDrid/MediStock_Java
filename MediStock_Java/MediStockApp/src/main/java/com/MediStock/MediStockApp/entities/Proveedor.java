@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name="Proveedores")
 @Data
@@ -29,5 +31,7 @@ public class Proveedor {
     @Column(name = "correo", length = 60)
     private String correo;
 
-
+    //FOREING KEY
+    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL)
+    private List<Producto> productos;
 }

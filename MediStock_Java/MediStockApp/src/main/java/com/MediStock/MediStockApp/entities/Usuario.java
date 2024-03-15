@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name= "Usuarios")
@@ -37,4 +38,12 @@ public class Usuario {
     private String correo;
     @Column(name = "contrasenia", length = 45)
     private String contrasenia;
+
+//FOREING KEYS
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "FkId_Rol",nullable = false)
+    private Rol rol;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Cita> citas;
 }

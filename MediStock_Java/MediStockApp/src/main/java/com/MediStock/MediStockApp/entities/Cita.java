@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name= "Citas")
@@ -25,4 +26,21 @@ public class Cita {
     private String tratamiento;
     @Column(name = "recomendaciones", length = 5000)
     private String recomendaciones;
+
+    //FOREING KEY
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "FkId_Agendamiento",nullable = false)
+    private Agendamiento agendamiento;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "FkId_Medico",nullable = false)
+    private Usuario usuario;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Citas_Productos",
+            joinColumns = @JoinColumn(name = "FkId_Cita"),
+            inverseJoinColumns = @JoinColumn(name = "FkId_Producto")
+    )
+    private List<Producto> productos;
 }

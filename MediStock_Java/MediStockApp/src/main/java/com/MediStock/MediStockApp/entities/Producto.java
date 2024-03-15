@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name= "Productos")
@@ -29,4 +30,13 @@ public class Producto {
     private int cantidad;
     @Column(name = "estado", length = 20)
     private String estado;
+
+    //FOREING KEY
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "FkId_Proveedor",nullable = false)
+    private Proveedor proveedor;
+
+    @ManyToMany(mappedBy = "productos")
+    private List<Cita> citas;
+
 }
